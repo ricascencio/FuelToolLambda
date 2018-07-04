@@ -38,9 +38,13 @@ public class FuelCharge implements Serializable {
 	@DynamoDBAttribute
 	private String performance;
 	
+	@DynamoDBAttribute
+	private String totalKms;
+	
+	
 	public FuelCharge(){}
 	
-	public FuelCharge(String car, String chargeDate, String chargeFormatedDate, String createDate, String days, String kms, String lts, String performance){
+	public FuelCharge(String car, String chargeDate, String chargeFormatedDate, String createDate, String days, String kms, String lts, String performance, String totalKms){
 		this.car = car;
 		this.chargeDate = chargeDate;
 		this.chargeFormatedDate = chargeFormatedDate;
@@ -49,6 +53,7 @@ public class FuelCharge implements Serializable {
 		this.kms = kms;
 		this.lts = lts;
 		this.performance = performance;
+		this.totalKms = totalKms;
 	}
 
 	public String getCar() {
@@ -113,5 +118,13 @@ public class FuelCharge implements Serializable {
 
 	public void setPerformance(String performance) {
 		this.performance = performance;
-	}	
+	}
+
+	public String getTotalKms() {
+		return totalKms;
+	}
+
+	public void setTotalKms(String totalKms) {
+		this.totalKms = totalKms;
+	}		
 }

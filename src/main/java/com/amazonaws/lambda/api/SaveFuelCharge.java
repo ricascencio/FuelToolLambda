@@ -19,7 +19,8 @@ public class SaveFuelCharge implements RequestHandler<ChargeLambdaRequest, Strin
                
     	long diffInMillies = Math.abs(System.currentTimeMillis() - Long.parseLong(fuelCharge.getChargeDate()));
     	long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-    	Double performance = Double.parseDouble(input.getKms())/Double.parseDouble(input.getLts());    	    	
+    	Double performance = Double.parseDouble(input.getKms())/Double.parseDouble(input.getLts());
+    	Double totalKms = Double.parseDouble(fuelCharge.getTotalKms()) + Double.parseDouble(input.getKms());
     	
     	fuelCharge.setChargeFormatedDate(input.getChargeDate());
     	fuelCharge.setChargeDate(String.valueOf(Util.formatDate(input.getChargeDate()).getTime()));
@@ -27,7 +28,8 @@ public class SaveFuelCharge implements RequestHandler<ChargeLambdaRequest, Strin
     	fuelCharge.setDays(String.valueOf(diff));    	
     	fuelCharge.setKms(input.getKms());
     	fuelCharge.setLts(input.getLts());    	        	
-    	fuelCharge.setPerformance(Util.formatDecimal(performance));    	
+    	fuelCharge.setPerformance(Util.formatDecimal(performance));
+    	fuelCharge.setTotalKms(totalKms.toString());
     	
     	fuelChargeDao.saveFuelCharge(fuelCharge);
     	

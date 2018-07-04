@@ -72,6 +72,7 @@ public class DynamoDBFuelChargeDao implements FuelChargeDao{
         fuelCharge.setKms(item.get("kms").getN());
         fuelCharge.setLts(item.get("lts").getN());
         fuelCharge.setPerformance(item.get("performance").getN());
+        fuelCharge.setTotalKms(item.get("total_kms").getS());
 		return fuelCharge;
 	}
 
@@ -86,6 +87,7 @@ public class DynamoDBFuelChargeDao implements FuelChargeDao{
 		attributes.put("kms", new AttributeValue(fuelCharge.getKms()));
 		attributes.put("lts", new AttributeValue(fuelCharge.getLts()));
 		attributes.put("performance", new AttributeValue(fuelCharge.getPerformance()));
+		attributes.put("total_kms", new AttributeValue(fuelCharge.getTotalKms()));
 		PutItemRequest newItem = new PutItemRequest();
 		newItem.setItem(attributes);
 		newItem.setTableName("fuelCharges");
