@@ -72,7 +72,7 @@ public class DynamoDBFuelChargeDao implements FuelChargeDao{
         fuelCharge.setKms(item.get("kms").getN());
         fuelCharge.setLts(item.get("lts").getN());
         fuelCharge.setPerformance(item.get("performance").getN());               
-        fuelCharge.setTotalKms(item.get("total_kms").getN());        
+        fuelCharge.setTotalKms(item.get("total_kms").getS());        
 		return fuelCharge;
 	}
 
