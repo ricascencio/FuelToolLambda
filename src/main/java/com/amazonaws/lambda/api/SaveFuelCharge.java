@@ -14,12 +14,13 @@ public class SaveFuelCharge implements RequestHandler<ChargeLambdaRequest, Strin
 
     @Override
     public String handleRequest(ChargeLambdaRequest input, Context context) {
+    	System.out.println(input);
     	// get last charge by car    	
     	FuelCharge fuelCharge = fuelChargeDao.findLastFuelChargeByCar(input.getCar());
                
     	long diffInMillies = Math.abs(System.currentTimeMillis() - Long.parseLong(fuelCharge.getChargeDate()));
     	long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-    	Double performance = Double.parseDouble(input.getKms())/Double.parseDouble(input.getLts());
+    	Double performance = Double.parseDouble(input.getKms())/Double.parseDouble(input.getLts());    
     	Double totalKms = Double.parseDouble(fuelCharge.getTotalKms()) + Double.parseDouble(input.getKms());
     	
     	fuelCharge.setChargeFormatedDate(input.getChargeDate());
@@ -32,9 +33,11 @@ public class SaveFuelCharge implements RequestHandler<ChargeLambdaRequest, Strin
     	fuelCharge.setTotalKms(totalKms.toString());
     	
     	fuelChargeDao.saveFuelCharge(fuelCharge);
-    	
+    	    	
     	ChargeLambdaResponse response = new ChargeLambdaResponse(fuelCharge.getCar(), fuelCharge.getKms(), 
     			fuelCharge.getLts(), fuelCharge.getDays(), fuelCharge.getPerformance());
+    	
+    	System.out.println(response.getMessage());
     	
         return response.getMessage();
     }
